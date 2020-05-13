@@ -41,4 +41,38 @@ public class EcritureComptableTest {
         Assert.assertFalse(vEcriture.toString(), vEcriture.isEquilibree());
     }
 
+    @Test
+    public void getTotalDebitWithTwoLines() {
+        BigDecimal vRetour = BigDecimal.ZERO;
+        EcritureComptable ecritureComptable = new EcritureComptable();
+        ecritureComptable.getListLigneEcriture().add(this.createLigne(1, "20", "0"));
+        ecritureComptable.getListLigneEcriture().add(this.createLigne(2, "0", "20"));
+
+        for (LigneEcritureComptable vLigneEcritureComptable : ecritureComptable.getListLigneEcriture()) {
+            if (vLigneEcritureComptable.getDebit() != null) {
+                vRetour = vRetour.add(vLigneEcritureComptable.getDebit());
+            }
+        }
+
+        BigDecimal expected = BigDecimal.valueOf(20);
+        Assert.assertEquals(expected, vRetour);
+    }
+
+    // CE TEST REVIENT A VERSER UN MONTANT VIDE DEPUIS UN COMPTE QUI N EXISTE PAS VERS UN COMPTE QUI N EXISTE PAS ?
+    @Test
+    public void getTotalDebitWithTwoLinesOnlyNullValues() {
+        BigDecimal vRetour = BigDecimal.ZERO;
+        EcritureComptable ecritureComptable = new EcritureComptable();
+        ecritureComptable.getListLigneEcriture().add(this.createLigne(null, null, null));
+        ecritureComptable.getListLigneEcriture().add(this.createLigne(null, null, null));
+
+        for (LigneEcritureComptable vLigneEcritureComptable : ecritureComptable.getListLigneEcriture()) {
+            if (vLigneEcritureComptable.getDebit() != null) {
+                vRetour = vRetour.add(vLigneEcritureComptable.getDebit());
+            }
+        }
+
+        BigDecimal expected = BigDecimal.valueOf(0);
+        Assert.assertEquals(expected, vRetour);
+    }
 }

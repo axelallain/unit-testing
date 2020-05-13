@@ -53,6 +53,12 @@
         <!-- ===== Version properties ===== -->
         <log4j.version>2.8.1</log4j.version>
         <spring.version>4.3.7.RELEASE</spring.version>
+
+        <!-- ===== Sonarcloud ===== -->
+        <sonar.projectKey>axelallain_unit-testing</sonar.projectKey>
+        <sonar.organization>axelallain</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.login>2b28c4f7911cb53f253a68571428dcee0e76aa24</sonar.login>
     </properties>
 
 
@@ -247,6 +253,14 @@
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>4.12</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>3.3.3</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
