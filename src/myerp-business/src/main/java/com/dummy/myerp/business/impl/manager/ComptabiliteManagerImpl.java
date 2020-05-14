@@ -1,20 +1,19 @@
 package com.dummy.myerp.business.impl.manager;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
+import com.dummy.myerp.consumer.dao.contrat.ComptabiliteDao;
+import com.dummy.myerp.model.bean.comptabilite.*;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.transaction.TransactionStatus;
 import com.dummy.myerp.business.contrat.manager.ComptabiliteManager;
 import com.dummy.myerp.business.impl.AbstractBusinessManager;
-import com.dummy.myerp.model.bean.comptabilite.CompteComptable;
-import com.dummy.myerp.model.bean.comptabilite.EcritureComptable;
-import com.dummy.myerp.model.bean.comptabilite.JournalComptable;
-import com.dummy.myerp.model.bean.comptabilite.LigneEcritureComptable;
 import com.dummy.myerp.technical.exception.FunctionalException;
 import com.dummy.myerp.technical.exception.NotFoundException;
 
@@ -55,6 +54,11 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
         return getDaoProxy().getComptabiliteDao().getListEcritureComptable();
     }
 
+    @Override
+    public SequenceEcritureComptable getSequenceByJournalAndAnnee(String pJournal, Integer pAnnee) throws NotFoundException {
+        return getDaoProxy().getComptabiliteDao().getSequenceByJournalAndAnnee(pJournal, pAnnee);
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -74,6 +78,17 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
                 4.  Enregistrer (insert/update) la valeur de la séquence en persitance
                     (table sequence_ecriture_comptable)
          */
+
+        // Récupération de l'année de l'écriture
+        Calendar date = Calendar.getInstance();
+        date.setTime(pEcritureComptable.getDate());
+        int annee = date.get(Calendar.YEAR);
+
+        try {
+            SequenceEcritureComptable sequenceEcritureComptable = getSequenceByJournalAndAnnee(pEcritureComptable.getJournal().getCode(), annee);
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

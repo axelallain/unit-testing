@@ -48,11 +48,7 @@ public class EcritureComptableTest {
         ecritureComptable.getListLigneEcriture().add(this.createLigne(1, "20", "0"));
         ecritureComptable.getListLigneEcriture().add(this.createLigne(2, "0", "20"));
 
-        for (LigneEcritureComptable vLigneEcritureComptable : ecritureComptable.getListLigneEcriture()) {
-            if (vLigneEcritureComptable.getDebit() != null) {
-                vRetour = vRetour.add(vLigneEcritureComptable.getDebit());
-            }
-        }
+        vRetour = ecritureComptable.getTotalDebit();
 
         BigDecimal expected = BigDecimal.valueOf(20);
         Assert.assertEquals(expected, vRetour);
