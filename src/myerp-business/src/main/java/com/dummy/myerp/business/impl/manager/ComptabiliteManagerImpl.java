@@ -84,8 +84,23 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
         date.setTime(pEcritureComptable.getDate());
         int annee = date.get(Calendar.YEAR);
 
+        // Initialisation de la valeur de la séquence
+        int valeurSequence;
+
         try {
             SequenceEcritureComptable sequenceEcritureComptable = getSequenceByJournalAndAnnee(pEcritureComptable.getJournal().getCode(), annee);
+            if (sequenceEcritureComptable == null) {
+                valeurSequence = 00001;
+            } else {
+                valeurSequence = sequenceEcritureComptable.getDerniereValeur() + 1; // 00001 + 1 = 2 OU 00002
+            }
+
+            pEcritureComptable.setReference(pEcritureComptable.getJournal().getCode() + "-" + annee + "/" + valeurSequence);
+
+            Enregistrer (insert/update) la valeur de la séquence en persitance (table sequence_ecriture_comptable)
+
+            getDaoProxy().getComptabiliteDao().updateEcritureComptable(pEcritureComptable);
+
         } catch (NotFoundException e) {
             e.printStackTrace();
         }

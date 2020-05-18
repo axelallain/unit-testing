@@ -9,6 +9,8 @@ import org.junit.Test;
 
 public class EcritureComptableTest {
 
+
+
     private LigneEcritureComptable createLigne(Integer pCompteComptableNumero, String pDebit, String pCredit) {
         BigDecimal vDebit = pDebit == null ? null : new BigDecimal(pDebit);
         BigDecimal vCredit = pCredit == null ? null : new BigDecimal(pCredit);
@@ -22,8 +24,7 @@ public class EcritureComptableTest {
 
     @Test
     public void isEquilibree() {
-        EcritureComptable vEcriture;
-        vEcriture = new EcritureComptable();
+        EcritureComptable vEcriture = new EcritureComptable();
 
         vEcriture.setLibelle("Equilibrée");
         vEcriture.getListLigneEcriture().add(this.createLigne(1, "200.50", null));
@@ -43,30 +44,71 @@ public class EcritureComptableTest {
 
     @Test
     public void getTotalDebitWithTwoLines() {
-        BigDecimal vRetour = BigDecimal.ZERO;
         EcritureComptable ecritureComptable = new EcritureComptable();
-        ecritureComptable.getListLigneEcriture().add(this.createLigne(1, "20", "0"));
-        ecritureComptable.getListLigneEcriture().add(this.createLigne(2, "0", "20"));
+        ecritureComptable.getListLigneEcriture().add(this.createLigne(1, "20", null));
+        ecritureComptable.getListLigneEcriture().add(this.createLigne(2, null, "20"));
 
-        vRetour = ecritureComptable.getTotalDebit();
+        BigDecimal vRetour = ecritureComptable.getTotalDebit();
 
         BigDecimal expected = BigDecimal.valueOf(20);
         Assert.assertEquals(expected, vRetour);
     }
 
-    // CE TEST REVIENT A VERSER UN MONTANT VIDE DEPUIS UN COMPTE QUI N EXISTE PAS VERS UN COMPTE QUI N EXISTE PAS ?
     @Test
-    public void getTotalDebitWithTwoLinesOnlyNullValues() {
-        BigDecimal vRetour = BigDecimal.ZERO;
+    public void getTotalDebitWithTwoLinesAndNegativesValues() {
         EcritureComptable ecritureComptable = new EcritureComptable();
-        ecritureComptable.getListLigneEcriture().add(this.createLigne(null, null, null));
-        ecritureComptable.getListLigneEcriture().add(this.createLigne(null, null, null));
+        ecritureComptable.getListLigneEcriture().add(this.createLigne(1, "-20", null));
+        ecritureComptable.getListLigneEcriture().add(this.createLigne(2, null, "-20"));
 
-        for (LigneEcritureComptable vLigneEcritureComptable : ecritureComptable.getListLigneEcriture()) {
-            if (vLigneEcritureComptable.getDebit() != null) {
-                vRetour = vRetour.add(vLigneEcritureComptable.getDebit());
-            }
-        }
+        BigDecimal vRetour = ecritureComptable.getTotalDebit();
+
+        BigDecimal expected = BigDecimal.valueOf(-20);
+        Assert.assertEquals(expected, vRetour);
+    }
+
+    @Test
+    public void getTotalDebitWithTwoLinesAndNullValuesShouldReturnZero() {
+        EcritureComptable ecritureComptable = new EcritureComptable();
+        ecritureComptable.getListLigneEcriture().add(this.createLigne(1, null, null));
+        ecritureComptable.getListLigneEcriture().add(this.createLigne(2, null, null));
+
+        BigDecimal vRetour = ecritureComptable.getTotalDebit();
+
+        BigDecimal expected = BigDecimal.valueOf(0);
+        Assert.assertEquals(expected, vRetour);
+    }
+
+    @Test
+    public void getTotalCreditWithTwoLines() {
+        EcritureComptable ecritureComptable = new EcritureComptable();
+        ecritureComptable.getListLigneEcriture().add(this.createLigne(1, "30", null));
+        ecritureComptable.getListLigneEcriture().add(this.createLigne(2, null, "30"));
+
+        BigDecimal vRetour = ecritureComptable.getTotalCredit();
+
+        BigDecimal expected = BigDecimal.valueOf(30);
+        Assert.assertEquals(expected, vRetour);
+    }
+
+    @Test
+    public void getTotalCreditWithTwoLinesAndNegativesValues() {
+        EcritureComptable ecritureComptable = new EcritureComptable();
+        ecritureComptable.getListLigneEcriture().add(this.createLigne(1, "-30", null));
+        ecritureComptable.getListLigneEcriture().add(this.createLigne(2, null, "-30"));
+
+        BigDecimal vRetour = ecritureComptable.getTotalCredit();
+
+        BigDecimal expected = BigDecimal.valueOf(-30);
+        Assert.assertEquals(expected, vRetour);
+    }
+
+    @Test
+    public void getTotalCreditWithTwoLinesAndNullValuesShouldReturnZero() {
+        EcritureComptable ecritureComptable = new EcritureComptable();
+        ecritureComptable.getListLigneEcriture().add(this.createLigne(1, null, null));
+        ecritureComptable.getListLigneEcriture().add(this.createLigne(2, null, null));
+
+        BigDecimal vRetour = ecritureComptable.getTotalCredit();
 
         BigDecimal expected = BigDecimal.valueOf(0);
         Assert.assertEquals(expected, vRetour);
