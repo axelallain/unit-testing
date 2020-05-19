@@ -97,8 +97,6 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 
             pEcritureComptable.setReference(pEcritureComptable.getJournal().getCode() + "-" + annee + "/" + valeurSequence);
 
-            Enregistrer (insert/update) la valeur de la séquence en persitance (table sequence_ecriture_comptable)
-
             getDaoProxy().getComptabiliteDao().updateEcritureComptable(pEcritureComptable);
 
         } catch (NotFoundException e) {
@@ -164,6 +162,21 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 
         // TODO ===== RG_Compta_5 : Format et contenu de la référence
         // vérifier que l'année dans la référence correspond bien à la date de l'écriture, idem pour le code journal...
+
+        // Mémo à supprimer : AA-2020/00001
+
+        if (pEcritureComptable.getReference().substring(0, 2).equals(pEcritureComptable.getJournal().getCode())) {
+            // Sysout ? Logger ?
+        } else {
+            throw new FunctionalException("Le code du journal trouvé dans la référence ne correspond pas au code du journal de l'écriture comptable");
+        }
+
+        // FORMATER pEcritureComptable.getDate pour récupérer uniquement la date ? La date d'une écriture est toujours une année ? Si oui pas besoin
+        if (pEcritureComptable.getReference().substring(4, 7).equals(pEcritureComptable.getDate())) {
+            // Sysout ? Logger ?
+        } else {
+            throw new FunctionalException("La date trouvée dans la référence ne correspond pas à la date de l'écriture comptable");
+        }
     }
 
 
