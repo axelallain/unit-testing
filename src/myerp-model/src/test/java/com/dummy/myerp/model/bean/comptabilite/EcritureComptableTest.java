@@ -5,11 +5,17 @@ import java.math.BigDecimal;
 import org.apache.commons.lang3.ObjectUtils;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 
 
 public class EcritureComptableTest {
 
+    private EcritureComptable vEcriture;
 
+    @BeforeEach
+    public void initEcriture() {
+        vEcriture = new EcritureComptable();
+    }
 
     private LigneEcritureComptable createLigne(Integer pCompteComptableNumero, String pDebit, String pCredit) {
         BigDecimal vDebit = pDebit == null ? null : new BigDecimal(pDebit);
@@ -24,7 +30,6 @@ public class EcritureComptableTest {
 
     @Test
     public void isEquilibree() {
-        EcritureComptable vEcriture = new EcritureComptable();
 
         vEcriture.setLibelle("Equilibrée");
         vEcriture.getListLigneEcriture().add(this.createLigne(1, "200.50", null));
@@ -44,11 +49,11 @@ public class EcritureComptableTest {
 
     @Test
     public void getTotalDebitWithTwoLines() {
-        EcritureComptable ecritureComptable = new EcritureComptable();
-        ecritureComptable.getListLigneEcriture().add(this.createLigne(1, "20", null));
-        ecritureComptable.getListLigneEcriture().add(this.createLigne(2, null, "20"));
 
-        BigDecimal vRetour = ecritureComptable.getTotalDebit();
+        vEcriture.getListLigneEcriture().add(this.createLigne(1, "20", null));
+        vEcriture.getListLigneEcriture().add(this.createLigne(2, null, "20"));
+
+        BigDecimal vRetour = vEcriture.getTotalDebit();
 
         BigDecimal expected = BigDecimal.valueOf(20);
         Assert.assertEquals(expected, vRetour);
@@ -56,11 +61,11 @@ public class EcritureComptableTest {
 
     @Test
     public void getTotalDebitWithTwoLinesAndNegativesValues() {
-        EcritureComptable ecritureComptable = new EcritureComptable();
-        ecritureComptable.getListLigneEcriture().add(this.createLigne(1, "-20", null));
-        ecritureComptable.getListLigneEcriture().add(this.createLigne(2, null, "-20"));
 
-        BigDecimal vRetour = ecritureComptable.getTotalDebit();
+        vEcriture.getListLigneEcriture().add(this.createLigne(1, "-20", null));
+        vEcriture.getListLigneEcriture().add(this.createLigne(2, null, "-20"));
+
+        BigDecimal vRetour = vEcriture.getTotalDebit();
 
         BigDecimal expected = BigDecimal.valueOf(-20);
         Assert.assertEquals(expected, vRetour);
@@ -68,11 +73,11 @@ public class EcritureComptableTest {
 
     @Test
     public void getTotalDebitWithTwoLinesAndNullValuesShouldReturnZero() {
-        EcritureComptable ecritureComptable = new EcritureComptable();
-        ecritureComptable.getListLigneEcriture().add(this.createLigne(1, null, null));
-        ecritureComptable.getListLigneEcriture().add(this.createLigne(2, null, null));
 
-        BigDecimal vRetour = ecritureComptable.getTotalDebit();
+        vEcriture.getListLigneEcriture().add(this.createLigne(1, null, null));
+        vEcriture.getListLigneEcriture().add(this.createLigne(2, null, null));
+
+        BigDecimal vRetour = vEcriture.getTotalDebit();
 
         BigDecimal expected = BigDecimal.valueOf(0);
         Assert.assertEquals(expected, vRetour);
@@ -80,11 +85,11 @@ public class EcritureComptableTest {
 
     @Test
     public void getTotalCreditWithTwoLines() {
-        EcritureComptable ecritureComptable = new EcritureComptable();
-        ecritureComptable.getListLigneEcriture().add(this.createLigne(1, "30", null));
-        ecritureComptable.getListLigneEcriture().add(this.createLigne(2, null, "30"));
 
-        BigDecimal vRetour = ecritureComptable.getTotalCredit();
+        vEcriture.getListLigneEcriture().add(this.createLigne(1, "30", null));
+        vEcriture.getListLigneEcriture().add(this.createLigne(2, null, "30"));
+
+        BigDecimal vRetour = vEcriture.getTotalCredit();
 
         BigDecimal expected = BigDecimal.valueOf(30);
         Assert.assertEquals(expected, vRetour);
@@ -92,11 +97,11 @@ public class EcritureComptableTest {
 
     @Test
     public void getTotalCreditWithTwoLinesAndNegativesValues() {
-        EcritureComptable ecritureComptable = new EcritureComptable();
-        ecritureComptable.getListLigneEcriture().add(this.createLigne(1, "-30", null));
-        ecritureComptable.getListLigneEcriture().add(this.createLigne(2, null, "-30"));
 
-        BigDecimal vRetour = ecritureComptable.getTotalCredit();
+        vEcriture.getListLigneEcriture().add(this.createLigne(1, "-30", null));
+        vEcriture.getListLigneEcriture().add(this.createLigne(2, null, "-30"));
+
+        BigDecimal vRetour = vEcriture.getTotalCredit();
 
         BigDecimal expected = BigDecimal.valueOf(-30);
         Assert.assertEquals(expected, vRetour);
@@ -104,11 +109,11 @@ public class EcritureComptableTest {
 
     @Test
     public void getTotalCreditWithTwoLinesAndNullValuesShouldReturnZero() {
-        EcritureComptable ecritureComptable = new EcritureComptable();
-        ecritureComptable.getListLigneEcriture().add(this.createLigne(1, null, null));
-        ecritureComptable.getListLigneEcriture().add(this.createLigne(2, null, null));
 
-        BigDecimal vRetour = ecritureComptable.getTotalCredit();
+        vEcriture.getListLigneEcriture().add(this.createLigne(1, null, null));
+        vEcriture.getListLigneEcriture().add(this.createLigne(2, null, null));
+
+        BigDecimal vRetour = vEcriture.getTotalCredit();
 
         BigDecimal expected = BigDecimal.valueOf(0);
         Assert.assertEquals(expected, vRetour);
