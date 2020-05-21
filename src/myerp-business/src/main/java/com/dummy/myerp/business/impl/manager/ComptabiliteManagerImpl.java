@@ -127,10 +127,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
         // ===== Vérification des contraintes unitaires sur les attributs de l'écriture
         Set<ConstraintViolation<EcritureComptable>> vViolations = getConstraintValidator().validate(pEcritureComptable);
         if (!vViolations.isEmpty()) {
-            throw new FunctionalException("L'écriture comptable ne respecte pas les règles de gestion.",
-                                          new ConstraintViolationException(
-                                              "L'écriture comptable ne respecte pas les contraintes de validation",
-                                              vViolations));
+            throw new FunctionalException("L'écriture comptable ne respecte pas les règles de gestion.", new ConstraintViolationException("L'écriture comptable ne respecte pas les contraintes de validation", vViolations));
         }
 
         // ===== RG_Compta_2 : Pour qu'une écriture comptable soit valide, elle doit être équilibrée
@@ -142,20 +139,16 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
         int vNbrCredit = 0;
         int vNbrDebit = 0;
         for (LigneEcritureComptable vLigneEcritureComptable : pEcritureComptable.getListLigneEcriture()) {
-            if (BigDecimal.ZERO.compareTo(ObjectUtils.defaultIfNull(vLigneEcritureComptable.getCredit(),
-                                                                    BigDecimal.ZERO)) != 0) {
+            if (BigDecimal.ZERO.compareTo(ObjectUtils.defaultIfNull(vLigneEcritureComptable.getCredit(), BigDecimal.ZERO)) != 0) {
                 vNbrCredit++;
             }
-            if (BigDecimal.ZERO.compareTo(ObjectUtils.defaultIfNull(vLigneEcritureComptable.getDebit(),
-                                                                    BigDecimal.ZERO)) != 0) {
+            if (BigDecimal.ZERO.compareTo(ObjectUtils.defaultIfNull(vLigneEcritureComptable.getDebit(), BigDecimal.ZERO)) != 0) {
                 vNbrDebit++;
             }
         }
         // On test le nombre de lignes car si l'écriture à une seule ligne
         //      avec un montant au débit et un montant au crédit ce n'est pas valable
-        if (pEcritureComptable.getListLigneEcriture().size() < 2
-            || vNbrCredit < 1
-            || vNbrDebit < 1) {
+        if (pEcritureComptable.getListLigneEcriture().size() < 2 || vNbrCredit < 1 || vNbrDebit < 1) {
             throw new FunctionalException(
                 "L'écriture comptable doit avoir au moins deux lignes : une ligne au débit et une ligne au crédit.");
         }
@@ -169,8 +162,11 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
             throw new FunctionalException("Le code du journal trouvé dans la référence ne correspond pas au code du journal de l'écriture comptable");
         }
 
-        // FORMATER pEcritureComptable.getDate pour récupérer uniquement la date ? La date d'une écriture est déjà formattée en yyyy ? Si oui pas besoin
-        if (!pEcritureComptable.getReference().substring(4, 7).equals(pEcritureComptable.getDate())) {
+        Calendar date = Calendar.getInstance();
+        date.setTime(pEcritureComptable.getDate());
+        int anneeEcriture = date.get(Calendar.YEAR);
+
+        if (!pEcritureComptable.getReference().substring(3, 7).equals(anneeEcriture)) {
             throw new FunctionalException("La date trouvée dans la référence ne correspond pas à la date de l'écriture comptable");
         }
     }
