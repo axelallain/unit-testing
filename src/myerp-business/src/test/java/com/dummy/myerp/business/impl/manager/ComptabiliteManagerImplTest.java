@@ -21,9 +21,9 @@ public class ComptabiliteManagerImplTest {
         EcritureComptable vEcritureComptable;
         vEcritureComptable = new EcritureComptable();
         vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
-        vEcritureComptable.setDate(new Date());
+        vEcritureComptable.setDate(new Date(2020, 04, 18));
         vEcritureComptable.setLibelle("Libelle");
-        vEcritureComptable.setReference("AC-2020/00001"); // AJOUTER POUR FAIRE PASSER LE TEST SINON NULLPOINTEREXCEPTION
+        vEcritureComptable.setReference("AC" + "-" + 2020 + "/" + "00001");
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
                                                                                  null, new BigDecimal(123),
                                                                                  null));

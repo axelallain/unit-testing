@@ -127,6 +127,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
         // ===== Vérification des contraintes unitaires sur les attributs de l'écriture
         Set<ConstraintViolation<EcritureComptable>> vViolations = getConstraintValidator().validate(pEcritureComptable);
         if (!vViolations.isEmpty()) {
+            System.out.println(vViolations); // JUSTE POUR DEBUG, A SUPPRIMER !!!
             throw new FunctionalException("L'écriture comptable ne respecte pas les règles de gestion.", new ConstraintViolationException("L'écriture comptable ne respecte pas les contraintes de validation", vViolations));
         }
 
@@ -148,7 +149,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
         }
         // On test le nombre de lignes car si l'écriture à une seule ligne
         //      avec un montant au débit et un montant au crédit ce n'est pas valable
-        if (pEcritureComptable.getListLigneEcriture().size() < 2 || vNbrCredit < 1 || vNbrDebit < 1) {
+        if (pEcritureComptable.getListLigneEcriture().size() < 1 || vNbrCredit < 1 || vNbrDebit < 1) {
             throw new FunctionalException(
                 "L'écriture comptable doit avoir au moins deux lignes : une ligne au débit et une ligne au crédit.");
         }
@@ -167,6 +168,8 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
         int anneeEcriture = date.get(Calendar.YEAR);
 
         if (!pEcritureComptable.getReference().substring(3, 7).equals(anneeEcriture)) {
+            System.out.println(anneeEcriture);
+            System.out.println(pEcritureComptable.getReference().substring(3, 7));
             throw new FunctionalException("La date trouvée dans la référence ne correspond pas à la date de l'écriture comptable");
         }
     }
