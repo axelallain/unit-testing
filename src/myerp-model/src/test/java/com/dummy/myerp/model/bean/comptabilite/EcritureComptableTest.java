@@ -10,13 +10,6 @@ import org.junit.jupiter.api.BeforeEach;
 
 public class EcritureComptableTest {
 
-    private EcritureComptable vEcriture;
-
-    @BeforeEach
-    public void initEcriture() {
-        vEcriture = new EcritureComptable();
-    }
-
     private LigneEcritureComptable createLigne(Integer pCompteComptableNumero, String pDebit, String pCredit) {
         BigDecimal vDebit = pDebit == null ? null : new BigDecimal(pDebit);
         BigDecimal vCredit = pCredit == null ? null : new BigDecimal(pCredit);
@@ -30,7 +23,7 @@ public class EcritureComptableTest {
 
     @Test
     public void isEquilibree() {
-
+        EcritureComptable vEcriture = new EcritureComptable();
         vEcriture.setLibelle("Equilibrée");
         vEcriture.getListLigneEcriture().add(this.createLigne(1, "200.50", null));
         vEcriture.getListLigneEcriture().add(this.createLigne(1, "100.50", "33"));
@@ -49,7 +42,7 @@ public class EcritureComptableTest {
 
     @Test
     public void getTotalDebitWithTwoLines() {
-
+        EcritureComptable vEcriture = new EcritureComptable();
         vEcriture.getListLigneEcriture().add(this.createLigne(1, "20", null));
         vEcriture.getListLigneEcriture().add(this.createLigne(2, null, "20"));
 
@@ -61,7 +54,7 @@ public class EcritureComptableTest {
 
     @Test
     public void getTotalDebitWithTwoLinesAndNegativesValues() {
-
+        EcritureComptable vEcriture = new EcritureComptable();
         vEcriture.getListLigneEcriture().add(this.createLigne(1, "-20", null));
         vEcriture.getListLigneEcriture().add(this.createLigne(2, null, "-20"));
 
@@ -73,7 +66,7 @@ public class EcritureComptableTest {
 
     @Test
     public void getTotalDebitWithTwoLinesAndNullValuesShouldReturnZero() {
-
+        EcritureComptable vEcriture = new EcritureComptable();
         vEcriture.getListLigneEcriture().add(this.createLigne(1, null, null));
         vEcriture.getListLigneEcriture().add(this.createLigne(2, null, null));
 
@@ -85,7 +78,7 @@ public class EcritureComptableTest {
 
     @Test
     public void getTotalCreditWithTwoLines() {
-
+        EcritureComptable vEcriture = new EcritureComptable();
         vEcriture.getListLigneEcriture().add(this.createLigne(1, "30", null));
         vEcriture.getListLigneEcriture().add(this.createLigne(2, null, "30"));
 
@@ -97,7 +90,7 @@ public class EcritureComptableTest {
 
     @Test
     public void getTotalCreditWithTwoLinesAndNegativesValues() {
-
+        EcritureComptable vEcriture = new EcritureComptable();
         vEcriture.getListLigneEcriture().add(this.createLigne(1, "-30", null));
         vEcriture.getListLigneEcriture().add(this.createLigne(2, null, "-30"));
 
@@ -109,7 +102,7 @@ public class EcritureComptableTest {
 
     @Test
     public void getTotalCreditWithTwoLinesAndNullValuesShouldReturnZero() {
-
+        EcritureComptable vEcriture = new EcritureComptable();
         vEcriture.getListLigneEcriture().add(this.createLigne(1, null, null));
         vEcriture.getListLigneEcriture().add(this.createLigne(2, null, null));
 
