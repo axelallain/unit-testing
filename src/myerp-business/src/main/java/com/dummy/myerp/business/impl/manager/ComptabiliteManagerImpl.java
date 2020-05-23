@@ -163,9 +163,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
             throw new FunctionalException("Le code du journal trouvé dans la référence ne correspond pas au code du journal de l'écriture comptable");
         }
 
-        Calendar date = Calendar.getInstance();
-        date.setTime(pEcritureComptable.getDate());
-        int anneeEcriture = date.get(Calendar.YEAR);
+        String anneeEcriture = pEcritureComptable.getDate().toString().substring(25, 29);
 
         if (!pEcritureComptable.getReference().substring(3, 7).equals(anneeEcriture)) {
             System.out.println(anneeEcriture);

@@ -1,6 +1,10 @@
 package com.dummy.myerp.business.impl.manager;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.junit.Test;
@@ -21,7 +25,10 @@ public class ComptabiliteManagerImplTest {
         EcritureComptable vEcritureComptable;
         vEcritureComptable = new EcritureComptable();
         vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
-        vEcritureComptable.setDate(new Date(2020, 04, 18));
+
+        LocalDate dateEcriture = LocalDate.of(2020, Month.APRIL, 18);
+        vEcritureComptable.setDate(Date.from(dateEcriture.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+
         vEcritureComptable.setLibelle("Libelle");
         vEcritureComptable.setReference("AC" + "-" + 2020 + "/" + "00001");
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
