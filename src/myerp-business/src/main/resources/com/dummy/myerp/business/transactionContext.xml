@@ -12,6 +12,13 @@
         <constructor-arg ref="txManagerMYERP"/>
     </bean>
 
+    <!-- DaoProxy -->
+    <bean id="DaoProxy"
+          class="com.dummy.myerp.consumer.dao.impl.DaoProxyImpl"
+          scope="singleton"
+          factory-method="getInstance">
+    </bean>
+
 
     <!-- PlatformTransactionManager pour le DataSource MYERP -->
     <bean id="txManagerMYERP" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
