@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-                        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+                        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
 
     <!-- ====================   Consumer   ==================== -->
@@ -43,10 +44,20 @@
 
 
     <!-- ==================== Databases ==================== -->
-    <bean id="dataSourceMYERP" class="com.dummy.myerp.technical.util.spring.NullFactoryBean">
-        <constructor-arg value="javax.sql.DataSource"/>
+
+    <context:property-placeholder location="classpath:db.properties" />
+
+    <bean id="dataSourceMYERP" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value = "${db.driverClassName}" />
+        <property name="url" value = "${db.url}" />
+        <property name="username" value = "${db.username}" />
+        <property name="password" value = "${db.password}" />
+        <property name="initialSize" value = "${pool.initialSize}" />
     </bean>
 
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSourceMYERP"></property>
+    </bean>
 
     <!-- ========== SQL ========== -->
     <import resource="sqlContext.xml"/>

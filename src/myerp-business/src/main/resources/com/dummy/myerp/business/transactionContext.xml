@@ -24,4 +24,6 @@
     <bean id="txManagerMYERP" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSourceMYERP"/>
     </bean>
+
+    <bean id="dataSourceMYERP" class="org.apache.commons.dbcp.BasicDataSource" />
 </beans>
