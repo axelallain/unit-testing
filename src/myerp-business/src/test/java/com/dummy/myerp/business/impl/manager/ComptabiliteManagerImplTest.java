@@ -21,6 +21,13 @@ public class ComptabiliteManagerImplTest {
 
 
     @Test
+    public void addReference(EcritureComptable pEcritureComptable) {
+        // TODO CUSTOM : FAIRE TEST UNITAIRE ADDREFERENCE ICI (MOCK ECRITURECOMPTABLE ?)
+
+        manager.addReference(pEcritureComptable);
+    }
+
+    @Test
     public void checkEcritureComptableUnit() throws Exception {
         EcritureComptable vEcritureComptable;
         vEcritureComptable = new EcritureComptable();

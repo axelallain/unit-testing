@@ -2,6 +2,7 @@ package com.dummy.myerp.model.bean.comptabilite;
 
 import java.math.BigDecimal;
 
+import com.dummy.myerp.technical.exception.FunctionalException;
 import org.apache.commons.lang3.ObjectUtils;
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,9 +11,19 @@ import org.junit.jupiter.api.BeforeEach;
 
 public class EcritureComptableTest {
 
-    private LigneEcritureComptable createLigne(Integer pCompteComptableNumero, String pDebit, String pCredit) {
-        BigDecimal vDebit = pDebit == null ? null : new BigDecimal(pDebit);
-        BigDecimal vCredit = pCredit == null ? null : new BigDecimal(pCredit);
+    // TODO CUSTOM : C'EST ICI POUR RG_COMPTA_7 ? (terminé)
+    private LigneEcritureComptable createLigne(Integer pCompteComptableNumero, String pDebit, String pCredit) throws FunctionalException {
+        BigDecimal vDebit = BigDecimal.ZERO;
+        BigDecimal vCredit = BigDecimal.ZERO;
+        vDebit.setScale(2);
+        vCredit.setScale(2);
+        vDebit = pDebit == null ? null : new BigDecimal(pDebit);
+        vCredit = pCredit == null ? null : new BigDecimal(pCredit);
+
+        if (vDebit.scale() > 2 || vCredit.scale() > 2) {
+            throw new FunctionalException("Les montants des lignes d'écritures peuvent comporter 2 chiffres maximum après la virgule.");
+        }
+
         String vLibelle = ObjectUtils.defaultIfNull(vDebit, BigDecimal.ZERO)
                                      .subtract(ObjectUtils.defaultIfNull(vCredit, BigDecimal.ZERO)).toPlainString();
         LigneEcritureComptable vRetour = new LigneEcritureComptable(new CompteComptable(pCompteComptableNumero),
@@ -22,7 +33,7 @@ public class EcritureComptableTest {
     }
 
     @Test
-    public void isEquilibree() {
+    public void isEquilibree() throws FunctionalException {
         EcritureComptable vEcriture = new EcritureComptable();
         vEcriture.setLibelle("Equilibrée");
         vEcriture.getListLigneEcriture().add(this.createLigne(1, "200.50", null));
@@ -41,7 +52,7 @@ public class EcritureComptableTest {
     }
 
     @Test
-    public void getTotalDebitWithTwoLines() {
+    public void getTotalDebitWithTwoLines() throws FunctionalException {
         EcritureComptable vEcriture = new EcritureComptable();
         vEcriture.getListLigneEcriture().add(this.createLigne(1, "20", null));
         vEcriture.getListLigneEcriture().add(this.createLigne(2, null, "20"));
@@ -53,7 +64,7 @@ public class EcritureComptableTest {
     }
 
     @Test
-    public void getTotalDebitWithTwoLinesAndNegativesValues() {
+    public void getTotalDebitWithTwoLinesAndNegativesValues() throws FunctionalException {
         EcritureComptable vEcriture = new EcritureComptable();
         vEcriture.getListLigneEcriture().add(this.createLigne(1, "-20", null));
         vEcriture.getListLigneEcriture().add(this.createLigne(2, null, "-20"));
@@ -65,7 +76,7 @@ public class EcritureComptableTest {
     }
 
     @Test
-    public void getTotalDebitWithTwoLinesAndNullValuesShouldReturnZero() {
+    public void getTotalDebitWithTwoLinesAndNullValuesShouldReturnZero() throws FunctionalException {
         EcritureComptable vEcriture = new EcritureComptable();
         vEcriture.getListLigneEcriture().add(this.createLigne(1, null, null));
         vEcriture.getListLigneEcriture().add(this.createLigne(2, null, null));
@@ -77,7 +88,7 @@ public class EcritureComptableTest {
     }
 
     @Test
-    public void getTotalCreditWithTwoLines() {
+    public void getTotalCreditWithTwoLines() throws FunctionalException {
         EcritureComptable vEcriture = new EcritureComptable();
         vEcriture.getListLigneEcriture().add(this.createLigne(1, "30", null));
         vEcriture.getListLigneEcriture().add(this.createLigne(2, null, "30"));
@@ -89,7 +100,7 @@ public class EcritureComptableTest {
     }
 
     @Test
-    public void getTotalCreditWithTwoLinesAndNegativesValues() {
+    public void getTotalCreditWithTwoLinesAndNegativesValues() throws FunctionalException {
         EcritureComptable vEcriture = new EcritureComptable();
         vEcriture.getListLigneEcriture().add(this.createLigne(1, "-30", null));
         vEcriture.getListLigneEcriture().add(this.createLigne(2, null, "-30"));
@@ -101,7 +112,7 @@ public class EcritureComptableTest {
     }
 
     @Test
-    public void getTotalCreditWithTwoLinesAndNullValuesShouldReturnZero() {
+    public void getTotalCreditWithTwoLinesAndNullValuesShouldReturnZero() throws FunctionalException {
         EcritureComptable vEcriture = new EcritureComptable();
         vEcriture.getListLigneEcriture().add(this.createLigne(1, null, null));
         vEcriture.getListLigneEcriture().add(this.createLigne(2, null, null));
