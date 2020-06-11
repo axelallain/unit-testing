@@ -11,18 +11,9 @@ import org.junit.jupiter.api.BeforeEach;
 
 public class EcritureComptableTest {
 
-    // TODO CUSTOM : C'EST ICI POUR RG_COMPTA_7 ? (terminé)
     private LigneEcritureComptable createLigne(Integer pCompteComptableNumero, String pDebit, String pCredit) throws FunctionalException {
-        BigDecimal vDebit = BigDecimal.ZERO;
-        BigDecimal vCredit = BigDecimal.ZERO;
-        vDebit.setScale(2);
-        vCredit.setScale(2);
-        vDebit = pDebit == null ? null : new BigDecimal(pDebit);
-        vCredit = pCredit == null ? null : new BigDecimal(pCredit);
-
-        if (vDebit.scale() > 2 || vCredit.scale() > 2) {
-            throw new FunctionalException("Les montants des lignes d'écritures peuvent comporter 2 chiffres maximum après la virgule.");
-        }
+        BigDecimal vDebit = pDebit == null ? null : new BigDecimal(pDebit);
+        BigDecimal vCredit = pCredit == null ? null : new BigDecimal(pCredit);
 
         String vLibelle = ObjectUtils.defaultIfNull(vDebit, BigDecimal.ZERO)
                                      .subtract(ObjectUtils.defaultIfNull(vCredit, BigDecimal.ZERO)).toPlainString();
