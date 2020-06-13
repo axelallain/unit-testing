@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.ZoneId;
-import java.util.Calendar;
 import java.util.Date;
 
 import org.junit.Test;
@@ -19,16 +18,15 @@ public class ComptabiliteManagerImplTest {
 
     private ComptabiliteManagerImpl manager = new ComptabiliteManagerImpl();
 
-
     @Test
     public void addReference() {
-        // TODO CUSTOM : FAIRE TEST UNITAIRE ADDREFERENCE ICI (MOCK ?)
+        // TODO CUSTOM : FAIRE TEST UNITAIRE ADDREFERENCE ICI ? (MOCK ?)
         EcritureComptable vEcritureComptable;
         vEcritureComptable = new EcritureComptable();
 
         vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
 
-        LocalDate dateEcriture = LocalDate.of(2020, Month.APRIL, 18);
+        LocalDate dateEcriture = LocalDate.of(2016, Month.APRIL, 18);
         vEcritureComptable.setDate(Date.from(dateEcriture.atStartOfDay(ZoneId.systemDefault()).toInstant()));
 
         vEcritureComptable.setLibelle("Libelle");

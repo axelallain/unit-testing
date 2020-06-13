@@ -97,6 +97,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 
             pEcritureComptable.setReference(pEcritureComptable.getJournal().getCode() + "-" + annee + "/" + valeurSequence);
 
+            getDaoProxy().getComptabiliteDao().insertSequenceEcritureComptable(pEcritureComptable);
             getDaoProxy().getComptabiliteDao().updateEcritureComptable(pEcritureComptable);
 
         } catch (NotFoundException e) {

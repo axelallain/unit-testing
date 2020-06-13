@@ -92,6 +92,33 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
         return vBean;
     }
 
+    // ==================== SequenceEcritureComptable - INSERT ====================
+
+    /** SQLinsertSequenceEcritureComptable */
+    private static String SQLinsertSequenceEcritureComptable;
+    public void setSQLinsertSequenceEcritureComptable(String pSQLinsertSequenceEcritureComptable) {
+        SQLinsertSequenceEcritureComptable = pSQLinsertSequenceEcritureComptable;
+    }
+    @Override
+    public void insertSequenceEcritureComptable(SequenceEcritureComptable pSequenceEcritureComptable) {
+        // ===== Sequence Ecriture Comptable
+        NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource(DataSourcesEnum.MYERP));
+        MapSqlParameterSource vSqlParams = new MapSqlParameterSource();
+        vSqlParams.addValue("journal_code", pSequenceEcritureComptable.getJournal().getCode());
+        vSqlParams.addValue("annee", pEcritureComptable.getReference());
+        vSqlParams.addValue("derniere_valeur", pEcritureComptable.getDate(), Types.DATE);
+
+        vJdbcTemplate.update(SQLinsertEcritureComptable, vSqlParams);
+
+        // ----- Récupération de l'id
+        Integer vId = this.queryGetSequenceValuePostgreSQL(DataSourcesEnum.MYERP, "myerp.ecriture_comptable_id_seq",
+                Integer.class);
+        pEcritureComptable.setId(vId);
+
+        // ===== Liste des lignes d'écriture
+        this.insertListLigneEcritureComptable(pEcritureComptable);
+    }
+
     // ==================== EcritureComptable - GET ====================
 
     /** SQLgetListEcritureComptable */

@@ -12,7 +12,18 @@
           factory-method="getInstance">
         <property name="SQLgetSequenceByJournalAndAnnee">
             <value>
-                SELECT * FROM myerp.sequence_ecriture_comptable WHERE journal = :journal AND annee = :annee
+                SELECT * FROM myerp.sequence_ecriture_comptable WHERE journal_code = :journal AND annee = :annee
+            </value>
+        </property>
+        <property name="SQLinsertSequenceEcritureComptable">
+            <value>
+                INSERT INTO myerp.sequence_ecriture_comptable (
+                id,
+                journal_code, annee, derniere_valeur
+                ) VALUES (
+                nextval('myerp.ecriture_comptable_id_seq'),
+                :journal_code, :annee, :derniere_valeur
+                )
             </value>
         </property>
         <property name="SQLgetListCompteComptable">

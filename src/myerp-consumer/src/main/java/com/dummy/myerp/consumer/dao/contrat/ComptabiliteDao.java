@@ -35,6 +35,13 @@ public interface ComptabiliteDao {
      */
     SequenceEcritureComptable getSequenceByJournalAndAnnee(String pJournal, Integer pAnnee) throws NotFoundException;
 
+    /**
+     * Insert une nouvelle sequence écriture comptable.
+     *
+     * @param pEcritureComptable -
+     */
+    void insertSequenceEcritureComptable(EcritureComptable pEcritureComptable);
+
     // ==================== EcritureComptable ====================
 
     /**
