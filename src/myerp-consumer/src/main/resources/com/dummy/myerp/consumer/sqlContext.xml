@@ -15,15 +15,13 @@
                 SELECT * FROM myerp.sequence_ecriture_comptable WHERE journal_code = :journal AND annee = :annee
             </value>
         </property>
-        <property name="SQLinsertSequenceEcritureComptable">
+        <property name="SQLupsertSequenceEcritureComptable">
             <value>
-                INSERT INTO myerp.sequence_ecriture_comptable (
-                id,
-                journal_code, annee, derniere_valeur
-                ) VALUES (
-                nextval('myerp.ecriture_comptable_id_seq'),
-                :journal_code, :annee, :derniere_valeur
-                )
+                INSERT INTO myerp.sequence_ecriture_comptable (journal_code, annee, derniere_valeur)
+                VALUES (:journal, :annee, :derniere_valeur)
+                ON CONFLICT (journal_code, annee)
+                DO UPDATE SET derniere_valeur = :derniere_valeur
+                WHERE journal_code = :journal AND annee = :annee
             </value>
         </property>
         <property name="SQLgetListCompteComptable">
