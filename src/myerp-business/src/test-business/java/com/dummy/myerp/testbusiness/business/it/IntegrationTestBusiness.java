@@ -46,17 +46,19 @@ public class IntegrationTestBusiness extends BusinessTestCase {
         EcritureComptable vEcritureComptable;
         vEcritureComptable = new EcritureComptable();
 
+        vEcritureComptable.setId(-1);
+
         vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
 
         LocalDate dateEcriture = LocalDate.of(2016, Month.APRIL, 18);
         vEcritureComptable.setDate(Date.from(dateEcriture.atStartOfDay(ZoneId.systemDefault()).toInstant()));
 
-        vEcritureComptable.setLibelle("Libelle");
+        vEcritureComptable.setLibelle("Cartouches d'imprimante");
 
-        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(606),
                 null, new BigDecimal(123),
                 null));
-        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(401),
                 null, null,
                 new BigDecimal(123)));
 
