@@ -19,29 +19,6 @@ public class ComptabiliteManagerImplTest {
     private ComptabiliteManagerImpl manager = new ComptabiliteManagerImpl();
 
     @Test
-    public void addReference() {
-        // TODO CUSTOM : FAIRE TEST UNITAIRE ADDREFERENCE ICI ? (MOCK ?)
-        EcritureComptable vEcritureComptable;
-        vEcritureComptable = new EcritureComptable();
-
-        vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
-
-        LocalDate dateEcriture = LocalDate.of(2016, Month.APRIL, 18);
-        vEcritureComptable.setDate(Date.from(dateEcriture.atStartOfDay(ZoneId.systemDefault()).toInstant()));
-
-        vEcritureComptable.setLibelle("Libelle");
-
-        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
-                null, new BigDecimal(123),
-                null));
-        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
-                null, null,
-                new BigDecimal(123)));
-
-        manager.addReference(vEcritureComptable);
-    }
-
-    @Test
     public void checkEcritureComptableUnit() throws Exception {
         EcritureComptable vEcritureComptable;
         vEcritureComptable = new EcritureComptable();

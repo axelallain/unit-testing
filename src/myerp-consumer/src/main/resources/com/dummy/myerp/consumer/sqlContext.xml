@@ -21,7 +21,7 @@
                 VALUES (:journal, :annee, :derniere_valeur)
                 ON CONFLICT (journal_code, annee)
                 DO UPDATE SET derniere_valeur = :derniere_valeur
-                WHERE journal_code = :journal AND annee = :annee
+                WHERE myerp.sequence_ecriture_comptable.journal_code = :journal AND myerp.sequence_ecriture_comptable.annee = :annee
             </value>
         </property>
         <property name="SQLgetListCompteComptable">
