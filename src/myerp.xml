@@ -1,0 +1,1128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="myerp" default="all">
+  
+  
+  <property file="myerp.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*.yarb/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.egg"/>
+    <include name="*.jar"/>
+    <include name="*.ear"/>
+    <include name="*.klib"/>
+    <include name="*.swc"/>
+    <include name="*.war"/>
+    <include name="*.zip"/>
+    <include name="*.ane"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+    <exclude name="**/?*.aj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.8" value="${jdk.home.1.8}/bin"/>
+  <path id="jdk.classpath.1.8">
+    <fileset dir="${jdk.home.1.8}">
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/ext/cldrdata.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/jaccess.jar"/>
+      <include name="jre/lib/ext/jfxrt.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/nashorn.jar"/>
+      <include name="jre/lib/ext/sunec.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+      <include name="jre/lib/ext/sunpkcs11.jar"/>
+      <include name="jre/lib/ext/zipfs.jar"/>
+      <include name="jre/lib/javaws.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jfr.jar"/>
+      <include name="jre/lib/jfxswt.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/plugin.jar"/>
+      <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/rt.jar"/>
+      <include name="lib/ant-javafx.jar"/>
+      <include name="lib/dt.jar"/>
+      <include name="lib/javafx-mx.jar"/>
+      <include name="lib/jconsole.jar"/>
+      <include name="lib/packager.jar"/>
+      <include name="lib/sa-jdi.jar"/>
+      <include name="lib/tools.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.8}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.8}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.8"/>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.maven:_commons-dbcp:commons-dbcp:1.4.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-dbcp/commons-dbcp/1.4/commons-dbcp-1.4.jar"/>
+  </path>
+  
+  <path id="library.maven:_commons-logging:commons-logging:1.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-logging/commons-logging/1.2/commons-logging-1.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_commons-pool:commons-pool:1.5.4.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-pool/commons-pool/1.5.4/commons-pool-1.5.4.jar"/>
+  </path>
+  
+  <path id="library.maven:_javax.validation:validation-api:1.1.0.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/javax/validation/validation-api/1.1.0.Final/validation-api-1.1.0.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_junit:junit:4.12.classpath">
+    <pathelement location="${path.variable.maven_repository}/junit/junit/4.12/junit-4.12.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.bytebuddy:byte-buddy-agent:1.10.5.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/bytebuddy/byte-buddy-agent/1.10.5/byte-buddy-agent-1.10.5.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.bytebuddy:byte-buddy:1.10.5.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/bytebuddy/byte-buddy/1.10.5/byte-buddy-1.10.5.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.commons:commons-collections4:4.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/commons/commons-collections4/4.1/commons-collections4-4.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.commons:commons-dbcp2:2.7.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/commons/commons-dbcp2/2.7.0/commons-dbcp2-2.7.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.commons:commons-lang3:3.5.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/commons/commons-lang3/3.5/commons-lang3-3.5.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.commons:commons-pool2:2.7.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/commons/commons-pool2/2.7.0/commons-pool2-2.7.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.logging.log4j:log4j-api:2.8.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/logging/log4j/log4j-api/2.8.1/log4j-api-2.8.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.logging.log4j:log4j-core:2.8.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/logging/log4j/log4j-core/2.8.1/log4j-core-2.8.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.logging.log4j:log4j-jcl:2.8.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/logging/log4j/log4j-jcl/2.8.1/log4j-jcl-2.8.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.logging.log4j:log4j-slf4j-impl:2.8.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/logging/log4j/log4j-slf4j-impl/2.8.1/log4j-slf4j-impl-2.8.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apiguardian:apiguardian-api:1.1.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.hamcrest:hamcrest-core:1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.hibernate:hibernate-validator:4.2.0.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-validator/4.2.0.Final/hibernate-validator-4.2.0.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.junit.jupiter:junit-jupiter-api:5.6.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter-api/5.6.2/junit-jupiter-api-5.6.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.junit.platform:junit-platform-commons:1.6.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/junit/platform/junit-platform-commons/1.6.2/junit-platform-commons-1.6.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.junit.platform:junit-platform-engine:1.3.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/junit/platform/junit-platform-engine/1.3.0/junit-platform-engine-1.3.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.junit.vintage:junit-vintage-engine:5.3.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/junit/vintage/junit-vintage-engine/5.3.0/junit-vintage-engine-5.3.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.mockito:mockito-core:3.3.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/mockito/mockito-core/3.3.3/mockito-core-3.3.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.objenesis:objenesis:2.6.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/objenesis/objenesis/2.6/objenesis-2.6.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.opentest4j:opentest4j:1.2.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.postgresql:postgresql:9.4.1212.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/postgresql/postgresql/9.4.1212/postgresql-9.4.1212.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.slf4j:slf4j-api:1.6.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.slf4j:slf4j-api:1.7.24.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/slf4j/slf4j-api/1.7.24/slf4j-api-1.7.24.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework:spring-aop:5.2.6.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-aop/5.2.6.RELEASE/spring-aop-5.2.6.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework:spring-beans:5.2.6.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-beans/5.2.6.RELEASE/spring-beans-5.2.6.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework:spring-context:5.2.6.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-context/5.2.6.RELEASE/spring-context-5.2.6.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework:spring-core:5.2.6.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-core/5.2.6.RELEASE/spring-core-5.2.6.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework:spring-expression:5.2.6.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-expression/5.2.6.RELEASE/spring-expression-5.2.6.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework:spring-jcl:5.2.6.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-jcl/5.2.6.RELEASE/spring-jcl-5.2.6.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework:spring-jdbc:5.2.6.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-jdbc/5.2.6.RELEASE/spring-jdbc-5.2.6.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework:spring-test:5.2.7.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-test/5.2.7.RELEASE/spring-test-5.2.7.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework:spring-tx:5.2.6.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-tx/5.2.6.RELEASE/spring-tx-5.2.6.RELEASE.jar"/>
+  </path>
+  
+  
+  <!-- Application Server Libraries -->
+  <!-- Register Custom Compiler Taskdefs -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <fileset dir="${javac2.home}">
+      <include name="javac2.jar"/>
+      <include name="jdom.jar"/>
+      <include name="asm-all*.jar"/>
+      <include name="forms-*.jar"/>
+    </fileset>
+  </path>
+  <target name="register.custom.compilers">
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+  </target>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module myerp -->
+  
+  <dirname property="module.myerp.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.myerp" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.myerp" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.myerp" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.myerp" value="-encoding UTF-8 -source 5 -target 1.5 ${compiler.args}"/>
+  
+  <property name="myerp.output.dir" value="${module.myerp.basedir}/target/classes"/>
+  <property name="myerp.testoutput.dir" value="${module.myerp.basedir}/target/test-classes"/>
+  
+  <path id="myerp.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="myerp.module.production.classpath">
+    <path refid="${module.jdk.classpath.myerp}"/>
+  </path>
+  
+  <path id="myerp.runtime.production.module.classpath">
+    <pathelement location="${myerp.output.dir}"/>
+  </path>
+  
+  <path id="myerp.module.classpath">
+    <path refid="${module.jdk.classpath.myerp}"/>
+    <pathelement location="${myerp.output.dir}"/>
+  </path>
+  
+  <path id="myerp.runtime.module.classpath">
+    <pathelement location="${myerp.testoutput.dir}"/>
+    <pathelement location="${myerp.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.myerp">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.myerp">
+    <patternset refid="excluded.from.module.myerp"/>
+  </patternset>
+  
+  
+  <target name="compile.module.myerp" depends="compile.module.myerp.production,compile.module.myerp.tests" description="Compile module myerp"/>
+  
+  <target name="compile.module.myerp.production" depends="register.custom.compilers" description="Compile module myerp; production classes"/>
+  
+  <target name="compile.module.myerp.tests" depends="register.custom.compilers,compile.module.myerp.production" description="compile module myerp; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.myerp" description="cleanup module">
+    <delete dir="${myerp.output.dir}"/>
+    <delete dir="${myerp.testoutput.dir}"/>
+  </target>
+  
+  
+  <!-- Module myerp-technical -->
+  
+  <dirname property="module.myerp-technical.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.myerp-technical" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.myerp-technical" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.myerp-technical" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.myerp-technical" value="-encoding UTF-8 -source 8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="myerp-technical.output.dir" value="${module.myerp-technical.basedir}/myerp-technical/target/classes"/>
+  <property name="myerp-technical.testoutput.dir" value="${module.myerp-technical.basedir}/myerp-technical/target/test-classes"/>
+  
+  <path id="myerp-technical.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="myerp-technical.module.production.classpath">
+    <path refid="${module.jdk.classpath.myerp-technical}"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-api:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-core:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-jcl:2.8.1.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.2.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-slf4j-impl:2.8.1.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.24.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-lang3:3.5.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-collections4:4.1.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-core:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-jcl:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-context:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-aop:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-expression:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-beans:5.2.6.release.classpath"/>
+    <path refid="library.maven:_javax.validation:validation-api:1.1.0.final.classpath"/>
+  </path>
+  
+  <path id="myerp-technical.runtime.production.module.classpath">
+    <pathelement location="${myerp-technical.output.dir}"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-api:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-core:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-jcl:2.8.1.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.2.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-slf4j-impl:2.8.1.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.24.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-lang3:3.5.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-collections4:4.1.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-core:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-jcl:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-context:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-aop:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-expression:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-beans:5.2.6.release.classpath"/>
+    <path refid="library.maven:_javax.validation:validation-api:1.1.0.final.classpath"/>
+  </path>
+  
+  <path id="myerp-technical.module.classpath">
+    <path refid="${module.jdk.classpath.myerp-technical}"/>
+    <pathelement location="${myerp-technical.output.dir}"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-api:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-core:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-jcl:2.8.1.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.2.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-slf4j-impl:2.8.1.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.24.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-lang3:3.5.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-collections4:4.1.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-core:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-jcl:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-context:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-aop:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-expression:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-beans:5.2.6.release.classpath"/>
+    <path refid="library.maven:_javax.validation:validation-api:1.1.0.final.classpath"/>
+    <path refid="library.maven:_org.junit.jupiter:junit-jupiter-api:5.6.2.classpath"/>
+    <path refid="library.maven:_org.apiguardian:apiguardian-api:1.1.0.classpath"/>
+    <path refid="library.maven:_org.opentest4j:opentest4j:1.2.0.classpath"/>
+    <path refid="library.maven:_org.junit.platform:junit-platform-commons:1.6.2.classpath"/>
+    <path refid="library.maven:_org.junit.vintage:junit-vintage-engine:5.3.0.classpath"/>
+    <path refid="library.maven:_org.junit.platform:junit-platform-engine:1.3.0.classpath"/>
+    <path refid="library.maven:_junit:junit:4.12.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-validator:4.2.0.final.classpath"/>
+  </path>
+  
+  <path id="myerp-technical.runtime.module.classpath">
+    <pathelement location="${myerp-technical.testoutput.dir}"/>
+    <pathelement location="${myerp-technical.output.dir}"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-api:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-core:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-jcl:2.8.1.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.2.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-slf4j-impl:2.8.1.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.24.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-lang3:3.5.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-collections4:4.1.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-core:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-jcl:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-context:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-aop:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-expression:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-beans:5.2.6.release.classpath"/>
+    <path refid="library.maven:_javax.validation:validation-api:1.1.0.final.classpath"/>
+    <path refid="library.maven:_org.junit.jupiter:junit-jupiter-api:5.6.2.classpath"/>
+    <path refid="library.maven:_org.apiguardian:apiguardian-api:1.1.0.classpath"/>
+    <path refid="library.maven:_org.opentest4j:opentest4j:1.2.0.classpath"/>
+    <path refid="library.maven:_org.junit.platform:junit-platform-commons:1.6.2.classpath"/>
+    <path refid="library.maven:_org.junit.vintage:junit-vintage-engine:5.3.0.classpath"/>
+    <path refid="library.maven:_org.junit.platform:junit-platform-engine:1.3.0.classpath"/>
+    <path refid="library.maven:_junit:junit:4.12.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-validator:4.2.0.final.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.myerp-technical">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.myerp-technical">
+    <patternset refid="excluded.from.module.myerp-technical"/>
+  </patternset>
+  
+  <path id="myerp-technical.module.sourcepath">
+    <dirset dir="${module.myerp-technical.basedir}/myerp-technical">
+      <include name="src/main/java"/>
+      <include name="src/main/resources"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.myerp-technical" depends="compile.module.myerp-technical.production,compile.module.myerp-technical.tests" description="Compile module myerp-technical"/>
+  
+  <target name="compile.module.myerp-technical.production" depends="register.custom.compilers" description="Compile module myerp-technical; production classes">
+    <mkdir dir="${myerp-technical.output.dir}"/>
+    <javac2 destdir="${myerp-technical.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.myerp-technical}/javac">
+      <compilerarg line="${compiler.args.myerp-technical}"/>
+      <bootclasspath refid="myerp-technical.module.bootclasspath"/>
+      <classpath refid="myerp-technical.module.production.classpath"/>
+      <src refid="myerp-technical.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.myerp-technical"/>
+    </javac2>
+    
+    <copy todir="${myerp-technical.output.dir}">
+      <fileset dir="${module.myerp-technical.basedir}/myerp-technical/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.myerp-technical.basedir}/myerp-technical/src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.myerp-technical.tests" depends="register.custom.compilers,compile.module.myerp-technical.production" description="compile module myerp-technical; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.myerp-technical" description="cleanup module">
+    <delete dir="${myerp-technical.output.dir}"/>
+    <delete dir="${myerp-technical.testoutput.dir}"/>
+  </target>
+  
+  
+  <!-- Module myerp-model -->
+  
+  <dirname property="module.myerp-model.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.myerp-model" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.myerp-model" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.myerp-model" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.myerp-model" value="-encoding UTF-8 -source 8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="myerp-model.output.dir" value="${module.myerp-model.basedir}/myerp-model/target/classes"/>
+  <property name="myerp-model.testoutput.dir" value="${module.myerp-model.basedir}/myerp-model/target/test-classes"/>
+  
+  <path id="myerp-model.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="myerp-model.module.production.classpath">
+    <path refid="${module.jdk.classpath.myerp-model}"/>
+    <pathelement location="${myerp-technical.output.dir}"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-api:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-core:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-jcl:2.8.1.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.2.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-slf4j-impl:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-lang3:3.5.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-collections4:4.1.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-core:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-jcl:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-context:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-aop:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-expression:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-beans:5.2.6.release.classpath"/>
+    <path refid="library.maven:_javax.validation:validation-api:1.1.0.final.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.6.1.classpath"/>
+  </path>
+  
+  <path id="myerp-model.runtime.production.module.classpath">
+    <pathelement location="${myerp-model.output.dir}"/>
+    <path refid="myerp-technical.runtime.production.module.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-api:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-core:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-jcl:2.8.1.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.2.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-slf4j-impl:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-lang3:3.5.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-collections4:4.1.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-core:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-jcl:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-context:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-aop:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-expression:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-beans:5.2.6.release.classpath"/>
+    <path refid="library.maven:_javax.validation:validation-api:1.1.0.final.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.6.1.classpath"/>
+  </path>
+  
+  <path id="myerp-model.module.classpath">
+    <path refid="${module.jdk.classpath.myerp-model}"/>
+    <pathelement location="${myerp-model.output.dir}"/>
+    <pathelement location="${myerp-technical.testoutput.dir}"/>
+    <pathelement location="${myerp-technical.output.dir}"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-api:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-core:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-jcl:2.8.1.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.2.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-slf4j-impl:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-lang3:3.5.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-collections4:4.1.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-core:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-jcl:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-context:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-aop:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-expression:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-beans:5.2.6.release.classpath"/>
+    <path refid="library.maven:_javax.validation:validation-api:1.1.0.final.classpath"/>
+    <path refid="library.maven:_org.junit.jupiter:junit-jupiter-api:5.6.2.classpath"/>
+    <path refid="library.maven:_org.apiguardian:apiguardian-api:1.1.0.classpath"/>
+    <path refid="library.maven:_org.opentest4j:opentest4j:1.2.0.classpath"/>
+    <path refid="library.maven:_org.junit.platform:junit-platform-commons:1.6.2.classpath"/>
+    <path refid="library.maven:_org.junit.vintage:junit-vintage-engine:5.3.0.classpath"/>
+    <path refid="library.maven:_org.junit.platform:junit-platform-engine:1.3.0.classpath"/>
+    <path refid="library.maven:_junit:junit:4.12.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-validator:4.2.0.final.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.6.1.classpath"/>
+  </path>
+  
+  <path id="myerp-model.runtime.module.classpath">
+    <pathelement location="${myerp-model.testoutput.dir}"/>
+    <pathelement location="${myerp-model.output.dir}"/>
+    <path refid="myerp-technical.runtime.module.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-api:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-core:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-jcl:2.8.1.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.2.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-slf4j-impl:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-lang3:3.5.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-collections4:4.1.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-core:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-jcl:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-context:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-aop:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-expression:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-beans:5.2.6.release.classpath"/>
+    <path refid="library.maven:_javax.validation:validation-api:1.1.0.final.classpath"/>
+    <path refid="library.maven:_org.junit.jupiter:junit-jupiter-api:5.6.2.classpath"/>
+    <path refid="library.maven:_org.apiguardian:apiguardian-api:1.1.0.classpath"/>
+    <path refid="library.maven:_org.opentest4j:opentest4j:1.2.0.classpath"/>
+    <path refid="library.maven:_org.junit.platform:junit-platform-commons:1.6.2.classpath"/>
+    <path refid="library.maven:_org.junit.vintage:junit-vintage-engine:5.3.0.classpath"/>
+    <path refid="library.maven:_org.junit.platform:junit-platform-engine:1.3.0.classpath"/>
+    <path refid="library.maven:_junit:junit:4.12.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-validator:4.2.0.final.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.6.1.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.myerp-model">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.myerp-model">
+    <patternset refid="excluded.from.module.myerp-model"/>
+  </patternset>
+  
+  <path id="myerp-model.module.sourcepath">
+    <dirset dir="${module.myerp-model.basedir}/myerp-model">
+      <include name="src/main/java"/>
+      <include name="src/main/resources"/>
+    </dirset>
+  </path>
+  
+  <path id="myerp-model.module.test.sourcepath">
+    <dirset dir="${module.myerp-model.basedir}/myerp-model">
+      <include name="src/test/java"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.myerp-model" depends="compile.module.myerp-model.production,compile.module.myerp-model.tests" description="Compile module myerp-model"/>
+  
+  <target name="compile.module.myerp-model.production" depends="register.custom.compilers,compile.module.myerp-technical" description="Compile module myerp-model; production classes">
+    <mkdir dir="${myerp-model.output.dir}"/>
+    <javac2 destdir="${myerp-model.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.myerp-model}/javac">
+      <compilerarg line="${compiler.args.myerp-model}"/>
+      <bootclasspath refid="myerp-model.module.bootclasspath"/>
+      <classpath refid="myerp-model.module.production.classpath"/>
+      <src refid="myerp-model.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.myerp-model"/>
+    </javac2>
+    
+    <copy todir="${myerp-model.output.dir}">
+      <fileset dir="${module.myerp-model.basedir}/myerp-model/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.myerp-model.basedir}/myerp-model/src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.myerp-model.tests" depends="register.custom.compilers,compile.module.myerp-model.production" description="compile module myerp-model; test classes" unless="skip.tests">
+    <mkdir dir="${myerp-model.testoutput.dir}"/>
+    <javac2 destdir="${myerp-model.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.myerp-model}/javac">
+      <compilerarg line="${compiler.args.myerp-model}"/>
+      <bootclasspath refid="myerp-model.module.bootclasspath"/>
+      <classpath refid="myerp-model.module.classpath"/>
+      <src refid="myerp-model.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.myerp-model"/>
+    </javac2>
+    
+    <copy todir="${myerp-model.testoutput.dir}">
+      <fileset dir="${module.myerp-model.basedir}/myerp-model/src/test/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.myerp-model" description="cleanup module">
+    <delete dir="${myerp-model.output.dir}"/>
+    <delete dir="${myerp-model.testoutput.dir}"/>
+  </target>
+  
+  
+  <!-- Module myerp-consumer -->
+  
+  <dirname property="module.myerp-consumer.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.myerp-consumer" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.myerp-consumer" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.myerp-consumer" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.myerp-consumer" value="-encoding UTF-8 -source 8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="myerp-consumer.output.dir" value="${module.myerp-consumer.basedir}/myerp-consumer/target/classes"/>
+  <property name="myerp-consumer.testoutput.dir" value="${module.myerp-consumer.basedir}/myerp-consumer/target/test-classes"/>
+  
+  <path id="myerp-consumer.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="myerp-consumer.module.production.classpath">
+    <path refid="${module.jdk.classpath.myerp-consumer}"/>
+    <pathelement location="${myerp-model.output.dir}"/>
+    <pathelement location="${myerp-technical.output.dir}"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-api:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-core:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-jcl:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-slf4j-impl:2.8.1.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.24.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-lang3:3.5.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-collections4:4.1.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-context:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-aop:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-expression:5.2.6.release.classpath"/>
+    <path refid="library.maven:_javax.validation:validation-api:1.1.0.final.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-jdbc:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-beans:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-core:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-jcl:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-tx:5.2.6.release.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.2.classpath"/>
+    <path refid="library.maven:_commons-dbcp:commons-dbcp:1.4.classpath"/>
+    <path refid="library.maven:_commons-pool:commons-pool:1.5.4.classpath"/>
+  </path>
+  
+  <path id="myerp-consumer.runtime.production.module.classpath">
+    <pathelement location="${myerp-consumer.output.dir}"/>
+    <path refid="myerp-model.runtime.production.module.classpath"/>
+    <path refid="myerp-technical.runtime.production.module.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-api:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-core:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-jcl:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-slf4j-impl:2.8.1.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.24.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-lang3:3.5.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-collections4:4.1.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-context:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-aop:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-expression:5.2.6.release.classpath"/>
+    <path refid="library.maven:_javax.validation:validation-api:1.1.0.final.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-jdbc:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-beans:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-core:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-jcl:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-tx:5.2.6.release.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.2.classpath"/>
+    <path refid="library.maven:_commons-dbcp:commons-dbcp:1.4.classpath"/>
+    <path refid="library.maven:_commons-pool:commons-pool:1.5.4.classpath"/>
+  </path>
+  
+  <path id="myerp-consumer.module.classpath">
+    <path refid="${module.jdk.classpath.myerp-consumer}"/>
+    <pathelement location="${myerp-consumer.output.dir}"/>
+    <pathelement location="${myerp-model.testoutput.dir}"/>
+    <pathelement location="${myerp-model.output.dir}"/>
+    <pathelement location="${myerp-technical.testoutput.dir}"/>
+    <pathelement location="${myerp-technical.output.dir}"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-api:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-core:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-jcl:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-slf4j-impl:2.8.1.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.24.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-lang3:3.5.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-collections4:4.1.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-context:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-aop:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-expression:5.2.6.release.classpath"/>
+    <path refid="library.maven:_javax.validation:validation-api:1.1.0.final.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-jdbc:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-beans:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-core:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-jcl:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-tx:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.junit.jupiter:junit-jupiter-api:5.6.2.classpath"/>
+    <path refid="library.maven:_org.apiguardian:apiguardian-api:1.1.0.classpath"/>
+    <path refid="library.maven:_org.opentest4j:opentest4j:1.2.0.classpath"/>
+    <path refid="library.maven:_org.junit.platform:junit-platform-commons:1.6.2.classpath"/>
+    <path refid="library.maven:_org.junit.vintage:junit-vintage-engine:5.3.0.classpath"/>
+    <path refid="library.maven:_org.junit.platform:junit-platform-engine:1.3.0.classpath"/>
+    <path refid="library.maven:_junit:junit:4.12.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-dbcp2:2.7.0.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-pool2:2.7.0.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.2.classpath"/>
+    <path refid="library.maven:_commons-dbcp:commons-dbcp:1.4.classpath"/>
+    <path refid="library.maven:_commons-pool:commons-pool:1.5.4.classpath"/>
+    <path refid="library.maven:_org.postgresql:postgresql:9.4.1212.classpath"/>
+  </path>
+  
+  <path id="myerp-consumer.runtime.module.classpath">
+    <pathelement location="${myerp-consumer.testoutput.dir}"/>
+    <pathelement location="${myerp-consumer.output.dir}"/>
+    <path refid="myerp-model.runtime.module.classpath"/>
+    <path refid="myerp-technical.runtime.module.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-api:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-core:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-jcl:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-slf4j-impl:2.8.1.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.24.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-lang3:3.5.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-collections4:4.1.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-context:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-aop:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-expression:5.2.6.release.classpath"/>
+    <path refid="library.maven:_javax.validation:validation-api:1.1.0.final.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-jdbc:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-beans:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-core:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-jcl:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-tx:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.junit.jupiter:junit-jupiter-api:5.6.2.classpath"/>
+    <path refid="library.maven:_org.apiguardian:apiguardian-api:1.1.0.classpath"/>
+    <path refid="library.maven:_org.opentest4j:opentest4j:1.2.0.classpath"/>
+    <path refid="library.maven:_org.junit.platform:junit-platform-commons:1.6.2.classpath"/>
+    <path refid="library.maven:_org.junit.vintage:junit-vintage-engine:5.3.0.classpath"/>
+    <path refid="library.maven:_org.junit.platform:junit-platform-engine:1.3.0.classpath"/>
+    <path refid="library.maven:_junit:junit:4.12.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-dbcp2:2.7.0.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-pool2:2.7.0.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.2.classpath"/>
+    <path refid="library.maven:_commons-dbcp:commons-dbcp:1.4.classpath"/>
+    <path refid="library.maven:_commons-pool:commons-pool:1.5.4.classpath"/>
+    <path refid="library.maven:_org.postgresql:postgresql:9.4.1212.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.myerp-consumer">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.myerp-consumer">
+    <patternset refid="excluded.from.module.myerp-consumer"/>
+  </patternset>
+  
+  <path id="myerp-consumer.module.sourcepath">
+    <dirset dir="${module.myerp-consumer.basedir}/myerp-consumer">
+      <include name="src/main/java"/>
+      <include name="src/main/resources"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.myerp-consumer" depends="compile.module.myerp-consumer.production,compile.module.myerp-consumer.tests" description="Compile module myerp-consumer"/>
+  
+  <target name="compile.module.myerp-consumer.production" depends="register.custom.compilers,compile.module.myerp-model,compile.module.myerp-technical" description="Compile module myerp-consumer; production classes">
+    <mkdir dir="${myerp-consumer.output.dir}"/>
+    <javac2 destdir="${myerp-consumer.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.myerp-consumer}/javac">
+      <compilerarg line="${compiler.args.myerp-consumer}"/>
+      <bootclasspath refid="myerp-consumer.module.bootclasspath"/>
+      <classpath refid="myerp-consumer.module.production.classpath"/>
+      <src refid="myerp-consumer.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.myerp-consumer"/>
+    </javac2>
+    
+    <copy todir="${myerp-consumer.output.dir}">
+      <fileset dir="${module.myerp-consumer.basedir}/myerp-consumer/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.myerp-consumer.basedir}/myerp-consumer/src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.myerp-consumer.tests" depends="register.custom.compilers,compile.module.myerp-consumer.production" description="compile module myerp-consumer; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.myerp-consumer" description="cleanup module">
+    <delete dir="${myerp-consumer.output.dir}"/>
+    <delete dir="${myerp-consumer.testoutput.dir}"/>
+  </target>
+  
+  
+  <!-- Module myerp-business -->
+  
+  <dirname property="module.myerp-business.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.myerp-business" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.myerp-business" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.myerp-business" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.myerp-business" value="-encoding UTF-8 -source 8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="myerp-business.output.dir" value="${module.myerp-business.basedir}/myerp-business/target/classes"/>
+  <property name="myerp-business.testoutput.dir" value="${module.myerp-business.basedir}/myerp-business/target/test-classes"/>
+  
+  <path id="myerp-business.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="myerp-business.module.production.classpath">
+    <path refid="${module.jdk.classpath.myerp-business}"/>
+    <pathelement location="${myerp-model.output.dir}"/>
+    <pathelement location="${myerp-technical.output.dir}"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-api:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-core:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-jcl:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-slf4j-impl:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-lang3:3.5.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-collections4:4.1.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-context:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-aop:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-expression:5.2.6.release.classpath"/>
+    <pathelement location="${myerp-consumer.output.dir}"/>
+    <path refid="library.maven:_org.springframework:spring-jdbc:5.2.6.release.classpath"/>
+    <path refid="library.maven:_commons-dbcp:commons-dbcp:1.4.classpath"/>
+    <path refid="library.maven:_commons-pool:commons-pool:1.5.4.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-tx:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-beans:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-core:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-jcl:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-validator:4.2.0.final.classpath"/>
+    <path refid="library.maven:_javax.validation:validation-api:1.1.0.final.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.6.1.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.2.classpath"/>
+  </path>
+  
+  <path id="myerp-business.runtime.production.module.classpath">
+    <pathelement location="${myerp-business.output.dir}"/>
+    <path refid="myerp-model.runtime.production.module.classpath"/>
+    <path refid="myerp-technical.runtime.production.module.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-api:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-core:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-jcl:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-slf4j-impl:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-lang3:3.5.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-collections4:4.1.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-context:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-aop:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-expression:5.2.6.release.classpath"/>
+    <path refid="myerp-consumer.runtime.production.module.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-jdbc:5.2.6.release.classpath"/>
+    <path refid="library.maven:_commons-dbcp:commons-dbcp:1.4.classpath"/>
+    <path refid="library.maven:_commons-pool:commons-pool:1.5.4.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-tx:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-beans:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-core:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-jcl:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-validator:4.2.0.final.classpath"/>
+    <path refid="library.maven:_javax.validation:validation-api:1.1.0.final.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.6.1.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.2.classpath"/>
+  </path>
+  
+  <path id="myerp-business.module.classpath">
+    <path refid="${module.jdk.classpath.myerp-business}"/>
+    <pathelement location="${myerp-business.output.dir}"/>
+    <pathelement location="${myerp-model.testoutput.dir}"/>
+    <pathelement location="${myerp-model.output.dir}"/>
+    <pathelement location="${myerp-technical.testoutput.dir}"/>
+    <pathelement location="${myerp-technical.output.dir}"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-api:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-core:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-jcl:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-slf4j-impl:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-lang3:3.5.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-collections4:4.1.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-context:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-aop:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-expression:5.2.6.release.classpath"/>
+    <pathelement location="${myerp-consumer.testoutput.dir}"/>
+    <pathelement location="${myerp-consumer.output.dir}"/>
+    <path refid="library.maven:_org.springframework:spring-jdbc:5.2.6.release.classpath"/>
+    <path refid="library.maven:_commons-dbcp:commons-dbcp:1.4.classpath"/>
+    <path refid="library.maven:_commons-pool:commons-pool:1.5.4.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-tx:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-beans:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-core:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-jcl:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-validator:4.2.0.final.classpath"/>
+    <path refid="library.maven:_javax.validation:validation-api:1.1.0.final.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.6.1.classpath"/>
+    <path refid="library.maven:_org.junit.jupiter:junit-jupiter-api:5.6.2.classpath"/>
+    <path refid="library.maven:_org.apiguardian:apiguardian-api:1.1.0.classpath"/>
+    <path refid="library.maven:_org.opentest4j:opentest4j:1.2.0.classpath"/>
+    <path refid="library.maven:_org.junit.platform:junit-platform-commons:1.6.2.classpath"/>
+    <path refid="library.maven:_org.junit.vintage:junit-vintage-engine:5.3.0.classpath"/>
+    <path refid="library.maven:_org.junit.platform:junit-platform-engine:1.3.0.classpath"/>
+    <path refid="library.maven:_junit:junit:4.12.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+    <path refid="library.maven:_org.mockito:mockito-core:3.3.3.classpath"/>
+    <path refid="library.maven:_net.bytebuddy:byte-buddy:1.10.5.classpath"/>
+    <path refid="library.maven:_net.bytebuddy:byte-buddy-agent:1.10.5.classpath"/>
+    <path refid="library.maven:_org.objenesis:objenesis:2.6.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-test:5.2.7.release.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-dbcp2:2.7.0.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-pool2:2.7.0.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.2.classpath"/>
+    <path refid="library.maven:_org.postgresql:postgresql:9.4.1212.classpath"/>
+  </path>
+  
+  <path id="myerp-business.runtime.module.classpath">
+    <pathelement location="${myerp-business.testoutput.dir}"/>
+    <pathelement location="${myerp-business.output.dir}"/>
+    <path refid="myerp-model.runtime.module.classpath"/>
+    <path refid="myerp-technical.runtime.module.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-api:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-core:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-jcl:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-slf4j-impl:2.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-lang3:3.5.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-collections4:4.1.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-context:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-aop:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-expression:5.2.6.release.classpath"/>
+    <path refid="myerp-consumer.runtime.module.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-jdbc:5.2.6.release.classpath"/>
+    <path refid="library.maven:_commons-dbcp:commons-dbcp:1.4.classpath"/>
+    <path refid="library.maven:_commons-pool:commons-pool:1.5.4.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-tx:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-beans:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-core:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-jcl:5.2.6.release.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-validator:4.2.0.final.classpath"/>
+    <path refid="library.maven:_javax.validation:validation-api:1.1.0.final.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.6.1.classpath"/>
+    <path refid="library.maven:_org.junit.jupiter:junit-jupiter-api:5.6.2.classpath"/>
+    <path refid="library.maven:_org.apiguardian:apiguardian-api:1.1.0.classpath"/>
+    <path refid="library.maven:_org.opentest4j:opentest4j:1.2.0.classpath"/>
+    <path refid="library.maven:_org.junit.platform:junit-platform-commons:1.6.2.classpath"/>
+    <path refid="library.maven:_org.junit.vintage:junit-vintage-engine:5.3.0.classpath"/>
+    <path refid="library.maven:_org.junit.platform:junit-platform-engine:1.3.0.classpath"/>
+    <path refid="library.maven:_junit:junit:4.12.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+    <path refid="library.maven:_org.mockito:mockito-core:3.3.3.classpath"/>
+    <path refid="library.maven:_net.bytebuddy:byte-buddy:1.10.5.classpath"/>
+    <path refid="library.maven:_net.bytebuddy:byte-buddy-agent:1.10.5.classpath"/>
+    <path refid="library.maven:_org.objenesis:objenesis:2.6.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-test:5.2.7.release.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-dbcp2:2.7.0.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-pool2:2.7.0.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.2.classpath"/>
+    <path refid="library.maven:_org.postgresql:postgresql:9.4.1212.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.myerp-business">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.myerp-business">
+    <patternset refid="excluded.from.module.myerp-business"/>
+  </patternset>
+  
+  <path id="myerp-business.module.sourcepath">
+    <dirset dir="${module.myerp-business.basedir}/myerp-business">
+      <include name="src/main/java"/>
+      <include name="src/main/resources"/>
+    </dirset>
+  </path>
+  
+  <path id="myerp-business.module.test.sourcepath">
+    <dirset dir="${module.myerp-business.basedir}/myerp-business">
+      <include name="src/test-business/java"/>
+      <include name="src/test/java"/>
+      <include name="src/test/resources"/>
+      <include name="src/test-business/resources"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.myerp-business" depends="compile.module.myerp-business.production,compile.module.myerp-business.tests" description="Compile module myerp-business"/>
+  
+  <target name="compile.module.myerp-business.production" depends="register.custom.compilers,compile.module.myerp-model,compile.module.myerp-technical,compile.module.myerp-consumer" description="Compile module myerp-business; production classes">
+    <mkdir dir="${myerp-business.output.dir}"/>
+    <javac2 destdir="${myerp-business.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.myerp-business}/javac">
+      <compilerarg line="${compiler.args.myerp-business}"/>
+      <bootclasspath refid="myerp-business.module.bootclasspath"/>
+      <classpath refid="myerp-business.module.production.classpath"/>
+      <src refid="myerp-business.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.myerp-business"/>
+    </javac2>
+    
+    <copy todir="${myerp-business.output.dir}">
+      <fileset dir="${module.myerp-business.basedir}/myerp-business/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.myerp-business.basedir}/myerp-business/src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.myerp-business.tests" depends="register.custom.compilers,compile.module.myerp-business.production" description="compile module myerp-business; test classes" unless="skip.tests">
+    <mkdir dir="${myerp-business.testoutput.dir}"/>
+    <javac2 destdir="${myerp-business.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.myerp-business}/javac">
+      <compilerarg line="${compiler.args.myerp-business}"/>
+      <bootclasspath refid="myerp-business.module.bootclasspath"/>
+      <classpath refid="myerp-business.module.classpath"/>
+      <src refid="myerp-business.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.myerp-business"/>
+    </javac2>
+    
+    <copy todir="${myerp-business.testoutput.dir}">
+      <fileset dir="${module.myerp-business.basedir}/myerp-business/src/test-business/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.myerp-business.basedir}/myerp-business/src/test/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.myerp-business.basedir}/myerp-business/src/test/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.myerp-business.basedir}/myerp-business/src/test-business/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.myerp-business" description="cleanup module">
+    <delete dir="${myerp-business.output.dir}"/>
+    <delete dir="${myerp-business.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.myerp, clean.module.myerp-technical, clean.module.myerp-model, clean.module.myerp-consumer, clean.module.myerp-business" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.myerp, compile.module.myerp-technical, compile.module.myerp-model, compile.module.myerp-consumer, compile.module.myerp-business" description="build all modules"/>
+  
+  <target name="all" depends="build.modules" description="build all"/>
+</project>
