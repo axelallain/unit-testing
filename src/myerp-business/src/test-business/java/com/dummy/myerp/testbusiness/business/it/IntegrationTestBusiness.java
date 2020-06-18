@@ -5,9 +5,13 @@ import com.dummy.myerp.model.bean.comptabilite.CompteComptable;
 import com.dummy.myerp.model.bean.comptabilite.EcritureComptable;
 import com.dummy.myerp.model.bean.comptabilite.JournalComptable;
 import com.dummy.myerp.model.bean.comptabilite.LigneEcritureComptable;
+import com.dummy.myerp.technical.exception.FunctionalException;
 import com.dummy.myerp.testbusiness.business.BusinessTestCase;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Order;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
@@ -36,8 +40,77 @@ public class IntegrationTestBusiness extends BusinessTestCase {
     }
 
     @Test
-    public void insertListLigneEcritureComptableIT() {
+    public void insertEcritureComptableIT() throws FunctionalException {
+        EcritureComptable vEcritureComptable;
+        vEcritureComptable = new EcritureComptable();
 
+        vEcritureComptable.setId(80);
+
+        vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
+
+        LocalDate dateEcriture = LocalDate.of(2020, Month.APRIL, 18);
+        vEcritureComptable.setDate(Date.from(dateEcriture.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+
+        vEcritureComptable.setLibelle("Integration test");
+
+        vEcritureComptable.setReference("AC-2020/00007");
+
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(606),
+                null, new BigDecimal(123),
+                null));
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(401),
+                null, null,
+                new BigDecimal(123)));
+
+        manager.insertEcritureComptable(vEcritureComptable);
+    }
+
+    @Test
+    public void updateEcritureComptableIT() throws FunctionalException {
+        EcritureComptable vEcritureComptable;
+        vEcritureComptable = new EcritureComptable();
+
+        vEcritureComptable.setId(-5);
+
+        vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
+
+        LocalDate dateEcriture = LocalDate.of(2016, Month.APRIL, 18);
+        vEcritureComptable.setDate(Date.from(dateEcriture.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+
+        vEcritureComptable.setLibelle("Integration test updated");
+
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(606),
+                null, new BigDecimal(123),
+                null));
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(401),
+                null, null,
+                new BigDecimal(123)));
+
+        manager.updateEcritureComptable(vEcritureComptable);
+    }
+
+    @Test
+    public void deleteEcritureComptableIT() throws FunctionalException {
+        EcritureComptable vEcritureComptable;
+        vEcritureComptable = new EcritureComptable();
+
+        vEcritureComptable.setId(-1);
+
+        vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
+
+        LocalDate dateEcriture = LocalDate.of(2020, Month.APRIL, 18);
+        vEcritureComptable.setDate(Date.from(dateEcriture.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+
+        vEcritureComptable.setLibelle("Integration test");
+
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(606),
+                null, new BigDecimal(123),
+                null));
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(401),
+                null, null,
+                new BigDecimal(123)));
+
+        manager.deleteEcritureComptable(vEcritureComptable.getId());
     }
 
     @Test
