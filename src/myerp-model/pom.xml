@@ -53,6 +53,12 @@
             <artifactId>myerp-technical</artifactId>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+        </dependency>
+
 
         <!-- ========== Test Dependencies ========== -->
         <!-- ===== Tests ===== -->
