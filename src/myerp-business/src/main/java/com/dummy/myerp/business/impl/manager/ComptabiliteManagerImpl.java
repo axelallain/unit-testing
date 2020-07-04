@@ -59,6 +59,11 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
         return getDaoProxy().getComptabiliteDao().getSequenceByJournalAndAnnee(pJournal, pAnnee);
     }
 
+    @Override
+    public EcritureComptable getEcritureComptableByRef(String pReference) throws NotFoundException {
+        return getDaoProxy().getComptabiliteDao().getEcritureComptableByRef(pReference);
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -121,7 +126,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
     /**
      * {@inheritDoc}
      */
-    // TODO à tester
+    // TODO à tester (terminé)
     @Override
     public void checkEcritureComptable(EcritureComptable pEcritureComptable) throws FunctionalException {
         this.checkEcritureComptableUnit(pEcritureComptable);

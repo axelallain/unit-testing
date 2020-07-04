@@ -56,9 +56,11 @@
 
         <!-- ===== Sonarcloud ===== -->
 
+        <sonar.projectKey>axelallain_unit-testing</sonar.projectKey>
+        <sonar.moduleKey>${artifactId}</sonar.moduleKey>
         <sonar.organization>axelallain</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.login>13aafbb2f5050a6e081da9037a24243b69315dd9</sonar.login>
+        <sonar.login>7bfa5aa1565aec8df1dd4e55caf979ca5e9bfffb</sonar.login>
     </properties>
 
 

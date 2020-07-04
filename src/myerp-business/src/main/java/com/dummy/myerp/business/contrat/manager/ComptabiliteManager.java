@@ -24,6 +24,12 @@ public interface ComptabiliteManager {
     SequenceEcritureComptable getSequenceByJournalAndAnnee(String pJournal, Integer pAnnee) throws NotFoundException;
 
     /**
+     * Renvoie une écriture comptable correspondant à la référence
+     * @return {@link List}
+     */
+    EcritureComptable getEcritureComptableByRef(String pReference) throws NotFoundException;
+
+    /**
      * Renvoie la liste des comptes comptables.
      *
      * @return {@link List}
