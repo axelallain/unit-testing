@@ -145,6 +145,7 @@
 
 
             <!-- ========== Libraries ========== -->
+
             <!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
             <dependency>
                 <groupId>javax.xml.bind</groupId>
@@ -311,6 +312,12 @@
         <!-- =============================================================== -->
         <pluginManagement>
             <plugins>
+                <!-- ===== Jacoco Sonar===== -->
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>0.8.5</version>
+                </plugin>
                 <!-- ===== Java compilation ===== -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
