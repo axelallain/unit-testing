@@ -28,7 +28,7 @@ import java.util.List;
 @RunWith(SpringRunner.class) // MARCHE AUSSI SANS CETTE LIGNE, POURQUOI ? CAR JUNIT5 A REMPLACÉ RunWith PAR ExtendWith ?
 @ContextConfiguration(locations = {"/bootstrapContext.xml"})
 @Transactional
-public class IntegrationTestBusiness extends BusinessTestCase {
+public class BusinessIntegrationTest extends BusinessTestCase {
 
     private ComptabiliteManagerImpl manager = new ComptabiliteManagerImpl();
 

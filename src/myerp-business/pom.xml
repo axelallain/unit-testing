@@ -136,7 +136,7 @@
                         <executions>
                             <execution>
                                 <id>add-test-source</id>
-                                <phase>generate-sources</phase>
+                                <phase>generate-test-sources</phase>
                                 <goals>
                                     <goal>add-test-source</goal>
                                 </goals>
@@ -145,25 +145,6 @@
                                         <source>src/test-business/java</source>
                                     </sources>
                                 </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <plugin>
-                        <groupId>org.jacoco</groupId>
-                        <artifactId>jacoco-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>prepare-agent</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>report-aggregate</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>report-aggregate</goal>
-                                </goals>
                             </execution>
                         </executions>
                     </plugin>
