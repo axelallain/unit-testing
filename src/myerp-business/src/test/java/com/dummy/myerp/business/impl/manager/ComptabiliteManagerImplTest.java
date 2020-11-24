@@ -45,6 +45,7 @@ public class ComptabiliteManagerImplTest {
         manager.checkEcritureComptableUnit(vEcritureComptable);
     }
 
+    // ===== RG_Compta_7 : Les montants des lignes d'écritures peuvent comporter 2 chiffres maximum après la virgule. (Voir console du test)
     @Test(expected = FunctionalException.class)
     public void checkEcritureComptableUnitWithScaleGreaterThan2() throws Exception {
         EcritureComptable vEcritureComptable;

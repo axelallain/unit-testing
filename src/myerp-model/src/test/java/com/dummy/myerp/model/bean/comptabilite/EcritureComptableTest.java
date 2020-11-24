@@ -54,6 +54,7 @@ public class EcritureComptableTest {
         Assert.assertEquals(expected, vRetour);
     }
 
+    // ===== RG_Compta_4 : Les montants des lignes d'écriture sont signés et peuvent prendre des valeurs négatives
     @Test
     public void getTotalDebitWithTwoLinesAndNegativesValues() throws FunctionalException {
         EcritureComptable vEcriture = new EcritureComptable();

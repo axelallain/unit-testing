@@ -35,6 +35,7 @@ public class EcritureComptable {
     private String libelle;
 
     /** La liste des lignes d'écriture comptable. */
+    // ===== RG_Compta_3 : Une écriture comptable doit contenir au moins deux lignes d'écriture : une au débit et une au crédit.
     @Valid
     @Size(min = 2)
     private final List<LigneEcritureComptable> listLigneEcriture = new ArrayList<>();

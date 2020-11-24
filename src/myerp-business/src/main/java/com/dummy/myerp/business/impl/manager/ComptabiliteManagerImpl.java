@@ -97,6 +97,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
                     (table sequence_ecriture_comptable) */
             SequenceEcritureComptable sequenceEcritureComptable = getSequenceByJournalAndAnnee(pEcritureComptable.getJournal().getCode(), annee);
 
+            /* 1.  test */
             /* 2.  * S'il n'y a aucun enregistrement pour le journal pour l'année concernée :
                 1. Utiliser le numéro 1.
                     * Sinon :
